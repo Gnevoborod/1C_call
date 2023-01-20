@@ -32,7 +32,8 @@ namespace _1C_call
 
         private void button1_Click(object sender, EventArgs e)
         {
-            toolStripStatusLabel1.Text = "Start calling";
+            button1.Enabled = false;
+            toolStripStatusLabel1.Text = "Calling in progress";
             string requestBody = requestField.Text;
             
             Request request = new Request(connection.Hosts.First(a => a.Name == hostLink.Text),
@@ -44,6 +45,7 @@ namespace _1C_call
             if (responce == null)
             {
                 toolStripStatusLabel1.Text = "Done";
+                button1.Enabled = true;
                 return;
             }
             FileSaver fs = new FileSaver();
@@ -55,7 +57,8 @@ namespace _1C_call
                 PathToOpen=fs.SaveFile(methodName.Text, r.FileName, Convert.FromBase64String(r.FileContent));
             }
             toolStripStatusLabel1.Text = "Done";
-            if(PathToOpen!=null)
+            button1.Enabled = true;
+            if (PathToOpen!=null)
             {
                 System.Diagnostics.Process.Start("explorer.exe", PathToOpen);
             }
