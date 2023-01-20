@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using _1C_call.main;
 namespace _1C_call
 {
     internal static class Program
@@ -17,6 +17,8 @@ namespace _1C_call
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
+
         }
     }
 }

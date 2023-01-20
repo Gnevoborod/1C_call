@@ -1,32 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace _1C_call.main
 {
     internal class Connection
     {
-        public List<Host> hosts;
-        public List<Method> methods;
+        public List<Host> Hosts;
+        public List<Method> Methods;
+        private string AuthorisationPath = @"C:\1c_call\auth_1c.txt";
+        public string Authorization;
         public Connection()
         {
-            hosts= new List<Host>();
+            Hosts = new List<Host>();
+
+            Hosts.Add(new Host("Тест", @"https://146.185.243.56/kontur_buh_test/ru/hs/reestrUEApi/v1/"));
+            Hosts.Add(new Host("Прод", @"https://146.185.243.56/kontur_buh/ru/hs/reestrUEApi/v1/"));
+
+            Methods = new List<Method>();
+            Methods.Add(new Method("Создание участника", "participant","POST"));
+            Methods.Add(new Method("Создание счёта", "payment_create_account", "POST"));
+            Methods.Add(new Method("Регистрация КП", "payment_project", "POST"));
+            Methods.Add(new Method("Зачисление УЕ", "payment_cu_credit", "POST"));
+            Methods.Add(new Method("Передача УЕ", "payment_cu_debit", "POST"));
+            Methods.Add(new Method("Зачёт УЕ", "payment_cu_debit", "POST"));
+            Methods.Add(new Method("Изменение КП", "payment_project", "PUT"));
+            Methods.Add(new Method("Изменение участника", "participant", "PUT"));
+
             
-            hosts.Add(new Host("Тест", @"https://146.185.243.56/kontur_buh_test/ru/hs/reestrUEApi/v1/"));
-            hosts.Add(new Host("Прод", @"https://146.185.243.56/kontur_buh/ru/hs/reestrUEApi/v1/"));
-
-            methods = new List<Method>();
-            methods.Add(new Method("Создание участника", "participant","POST"));
-            methods.Add(new Method("Создание счёта", "payment_create_account", "POST"));
-            methods.Add(new Method("Регистрация КП", "payment_project", "POST"));
-            methods.Add(new Method("Зачисление УЕ", "payment_cu_credit", "POST"));
-            methods.Add(new Method("Передача УЕ", "payment_cu_debit", "POST"));
-            methods.Add(new Method("Зачёт УЕ", "payment_cu_debit", "POST"));
-            methods.Add(new Method("Изменение КП", "payment_project", "PUT"));
-            methods.Add(new Method("Изменение участника", "participant", "PUT"));
-
+            try
+            {
+                FileStream fs = new FileStream(AuthorisationPath, FileMode.Open);
+                using(StreamReader sr=new StreamReader(fs))
+                {
+                    Authorization = sr.ReadToEnd();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Не найден файл C:\\1c_call\\auth_1c.txt\nОсуществление вызовов 1С невозможно.");
+            }
         }
     }
 }
