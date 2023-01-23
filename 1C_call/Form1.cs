@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using _1C_call.main;
@@ -35,19 +36,35 @@ namespace _1C_call
             button1.Enabled = false;
             toolStripStatusLabel1.Text = "Calling in progress";
             string requestBody = requestField.Text;
-            
-            Request request = new Request(connection.Hosts.First(a => a.Name == hostLink.Text),
-                connection.Methods.First(a => a.Name == methodName.Text),
-                connection.Authorization,
-                requestBody);
-            Caller caller = new Caller(request);
-            Response[] responce=caller.Call();
+            bananaBox.Visible = true;
+            bananaBox.Refresh();
+            Response[] responce = null;
+            Host host= connection.Hosts[hostLink.SelectedIndex];
+            Method method = connection.Methods[methodName.SelectedIndex];
+            //Starting the new task with calling 1C
+            //Because I want to show funny banana
+            //While request is executing
+            Task t=Task.Run(()=>
+            {
+                Request request = new Request(host,
+                    method,
+                    connection.Authorization,
+                    requestBody);
+                Caller caller = new Caller(request);
+                responce = caller.Call();
+            });
+            while(!t.IsCompleted)
+            {
+                bananaBox.Refresh();
+            }
+            bananaBox.Visible = false;
             if (responce == null)
             {
                 toolStripStatusLabel1.Text = "Done";
                 button1.Enabled = true;
                 return;
             }
+
             FileSaver fs = new FileSaver();
             toolStripStatusLabel1.Text = "Saving";
             string PathToOpen = null;
@@ -84,5 +101,6 @@ namespace _1C_call
             else
                 button1.Enabled = false;
         }
+
     }
 }

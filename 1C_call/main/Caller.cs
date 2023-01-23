@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -33,8 +33,8 @@ namespace _1C_call.main
             string responseString=null;
             try
             {
-                HttpMethod httpMeth = request.method.HttpMethod == "GET" ?
-                    HttpMethod.Get : request.method.HttpMethod == "POST" ? HttpMethod.Post : HttpMethod.Put;
+                HttpMethod httpMeth = request.method.HttpMethod == "POST" ?
+                    HttpMethod.Post : request.method.HttpMethod == "PUT" ? HttpMethod.Put : HttpMethod.Get;
                 var httpClientHandler = new HttpClientHandler();
                 httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 HttpClient client = new HttpClient(httpClientHandler);
