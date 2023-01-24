@@ -30,8 +30,9 @@ namespace _1C_call.main
             Methods.Add(new Method("Зачёт УЕ", "payment_cu_debit", "POST"));
             Methods.Add(new Method("Изменение КП", "payment_project", "PUT"));
             Methods.Add(new Method("Изменение участника", "participant", "PUT"));
+            Methods.Add(new Method("Повторное получение документов", "payment_files", "POST"));
 
-            
+
             try
             {
                 FileStream fs = new FileStream(AuthorisationPath, FileMode.Open);

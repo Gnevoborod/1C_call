@@ -47,7 +47,7 @@ namespace _1C_call
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(337, 363);
+            this.button1.Location = new System.Drawing.Point(369, 357);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 23);
             this.button1.TabIndex = 0;
@@ -59,7 +59,7 @@ namespace _1C_call
             // 
             this.requestField.Location = new System.Drawing.Point(15, 49);
             this.requestField.Name = "requestField";
-            this.requestField.Size = new System.Drawing.Size(406, 292);
+            this.requestField.Size = new System.Drawing.Size(438, 292);
             this.requestField.TabIndex = 2;
             this.requestField.Text = "";
             this.requestField.TextChanged += new System.EventHandler(this.requestField_TextChanged);
@@ -68,9 +68,9 @@ namespace _1C_call
             // 
             this.methodName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.methodName.FormattingEnabled = true;
-            this.methodName.Location = new System.Drawing.Point(267, 12);
+            this.methodName.Location = new System.Drawing.Point(253, 12);
             this.methodName.Name = "methodName";
-            this.methodName.Size = new System.Drawing.Size(151, 21);
+            this.methodName.Size = new System.Drawing.Size(200, 21);
             this.methodName.TabIndex = 3;
             this.methodName.SelectedValueChanged += new System.EventHandler(this.hostLink_SelectedValueChanged);
             // 
@@ -96,7 +96,7 @@ namespace _1C_call
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(206, 15);
+            this.label2.Location = new System.Drawing.Point(192, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 6;
@@ -108,7 +108,7 @@ namespace _1C_call
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 392);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(435, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(465, 22);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "sdf";
             // 
@@ -132,7 +132,7 @@ namespace _1C_call
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 414);
+            this.ClientSize = new System.Drawing.Size(465, 414);
             this.Controls.Add(this.bananaBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label2);
