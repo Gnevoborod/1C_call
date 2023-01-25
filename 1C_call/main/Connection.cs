@@ -12,7 +12,7 @@ namespace _1C_call.main
     {
         public List<Host> Hosts;
         public List<Method> Methods;
-        private string AuthorisationPath = @"C:\1c_call\auth_1c.txt";
+        private string AuthorisationPath = "..\\..\\settings\\auth.txt";
         public string Authorization;
         public Connection()
         {
@@ -36,14 +36,17 @@ namespace _1C_call.main
             try
             {
                 FileStream fs = new FileStream(AuthorisationPath, FileMode.Open);
+                
                 using(StreamReader sr=new StreamReader(fs))
                 {
                     Authorization = sr.ReadToEnd();
                 }
+                var bytesToEncode=Encoding.UTF8.GetBytes(Authorization);
+                Authorization=Convert.ToBase64String(bytesToEncode);
             }
             catch
             {
-                MessageBox.Show("Не найден файл C:\\1c_call\\auth_1c.txt\nОсуществление вызовов 1С невозможно.");
+                MessageBox.Show("Не найден файл settings\\auth.txt\nОсуществление вызовов 1С невозможно.");
             }
         }
     }

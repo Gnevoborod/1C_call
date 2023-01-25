@@ -94,6 +94,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="resources\banana.gif" />
+    <Content Include="settings\auth.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
