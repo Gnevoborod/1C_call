@@ -18,17 +18,30 @@ namespace _1C_call
         {
             InitializeComponent();
             connection = new Connection();
-            foreach (Host h in connection.Hosts)
+            if (!connection.CallsAllowed)
             {
-                this.hostLink.Items.Add(h.Name);
+                requestField.Text = "Необходимо проверить настроечные файлы: 1 или несколько файлов отсутствуют или повреждены.";
+                return;
             }
+            try
+            {
+                foreach (Host h in connection.Hosts)
+                {
+                    this.hostLink.Items.Add(h.Name);
+                }
 
-            foreach (Method m in connection.Methods)
-            {
-                methodName.Items.Add(m.Name);
+                foreach (Method m in connection.Methods)
+                {
+                    methodName.Items.Add(m.Name);
+                }
+                if (connection.Authorization == null)
+                    button1.Enabled = false;
             }
-            if (connection.Authorization == null)
-                button1.Enabled = false;
+            catch
+            {
+                requestField.Text = "Необходимо проверить настроечные файлы: 1 или несколько файлов отсутствуют или повреждены.";
+                return;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

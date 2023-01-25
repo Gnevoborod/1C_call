@@ -10,6 +10,7 @@ namespace _1C_call.main
     /// Description of host class.
     /// We can call test host or prod host
     /// </summary>
+    [Serializable]
     internal class Host : RemoteObject
     {
         public Host(string name, string link):base(name, link){}

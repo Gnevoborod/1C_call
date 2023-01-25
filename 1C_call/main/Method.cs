@@ -9,6 +9,7 @@ namespace _1C_call.main
     /// <summary>
     /// We can call different methods on host
     /// </summary>
+    [Serializable]
     internal class Method :RemoteObject
     {
         public string HttpMethod { get; set; }

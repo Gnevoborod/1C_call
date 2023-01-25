@@ -1,0 +1,47 @@
+[
+  {
+    "HttpMethod": "POST",
+    "Name": "Создание участника",
+    "Link": "participant"
+  },
+  {
+    "HttpMethod": "POST",
+    "Name": "Создание счёта",
+    "Link": "payment_create_account"
+  },
+  {
+    "HttpMethod": "POST",
+    "Name": "Регистрация КП",
+    "Link": "payment_project"
+  },
+  {
+    "HttpMethod": "POST",
+    "Name": "Зачисление УЕ",
+    "Link": "payment_cu_credit"
+  },
+  {
+    "HttpMethod": "POST",
+    "Name": "Передача УЕ",
+    "Link": "payment_cu_debit"
+  },
+  {
+    "HttpMethod": "POST",
+    "Name": "Зачёт УЕ",
+    "Link": "payment_cu_debit"
+  },
+  {
+    "HttpMethod": "PUT",
+    "Name": "Изменение КП",
+    "Link": "payment_project"
+  },
+  {
+    "HttpMethod": "PUT",
+    "Name": "Изменение участника",
+    "Link": "participant"
+  },
+  {
+    "HttpMethod": "POST",
+    "Name": "Повторное получение документов",
+    "Link": "payment_files"
+  }
+]

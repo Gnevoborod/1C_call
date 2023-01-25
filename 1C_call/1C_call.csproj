@@ -87,6 +87,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="settings\hosts.json" />
+    <None Include="settings\methods.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
