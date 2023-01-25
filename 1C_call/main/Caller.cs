@@ -15,7 +15,6 @@ namespace _1C_call.main
     {
         
         Request request;
-        Response response;
 
         public Caller(Request request)
         {
@@ -33,8 +32,8 @@ namespace _1C_call.main
             string responseString=null;
             try
             {
-                HttpMethod httpMeth = request.method.HttpMethod == "POST" ?
-                    HttpMethod.Post : request.method.HttpMethod == "PUT" ? HttpMethod.Put : HttpMethod.Get;
+                HttpMethod httpMeth = request.method.HttpMethod.ToUpper() == "POST" ?
+                    HttpMethod.Post : request.method.HttpMethod.ToUpper() == "PUT" ? HttpMethod.Put : HttpMethod.Get;
                 var httpClientHandler = new HttpClientHandler();
                 httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 HttpClient client = new HttpClient(httpClientHandler);
