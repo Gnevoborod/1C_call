@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace _1C_call
 {
     public partial class Form1 : Form
     {
-        private Connection connection; 
+        private Connection connection;
         public Form1()
         {
             InitializeComponent();
@@ -44,7 +45,7 @@ namespace _1C_call
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
             toolStripStatusLabel1.Text = "Calling in progress";
@@ -52,12 +53,12 @@ namespace _1C_call
             bananaBox.Visible = true;
             bananaBox.Refresh();
             Response[] responce = null;
-            Host host= connection.Hosts[hostLink.SelectedIndex];
+            Host host = connection.Hosts[hostLink.SelectedIndex];
             Method method = connection.Methods[methodName.SelectedIndex];
             //Starting the new task with calling 1C
             //Because I want to show funny banana
             //While request is executing
-            Task t=Task.Run(()=>
+            Task t = Task.Run(() =>
             {
                 Request request = new Request(host,
                     method,
@@ -66,10 +67,11 @@ namespace _1C_call
                 Caller caller = new Caller(request);
                 responce = caller.Call();
             });
-            while(!t.IsCompleted)
+            while (!t.IsCompleted)
             {
                 bananaBox.Refresh();
             }
+            Debug.Print("1С вернула данные.");
             bananaBox.Visible = false;
             if (responce == null)
             {
@@ -78,17 +80,37 @@ namespace _1C_call
                 return;
             }
 
-            FileSaver fs = new FileSaver();
             toolStripStatusLabel1.Text = "Saving";
-            string PathToOpen = null;
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            List<Task> tasks = new List<Task>();
+            string PathToOpen = default;
+            string methodNameT = methodName.Text;
             foreach (Response r in responce)
             {
                 r.FileContent = r.FileContent.Replace("\r\n", "");
-                PathToOpen=fs.SaveFile(methodName.Text, r.FileName, Convert.FromBase64String(r.FileContent));
+                FileSaver fs = new FileSaver();
+                
+                tasks.Add(Task.Run(() =>
+                {
+                    Debug.Print("Следующий поток стартовал");
+                    fs.SaveFile(methodNameT, r.FileName, Convert.FromBase64String(r.FileContent));
+                    Debug.Print("Отправлено на сохранение");
+                    PathToOpen = fs.FinalPath;
+                }));
             }
+            Task.WaitAll(tasks.ToArray());
+            
+
+
+            sw.Stop();
+            Debug.Print(sw.ElapsedMilliseconds.ToString());
+
             toolStripStatusLabel1.Text = "Done";
             button1.Enabled = true;
-            if (PathToOpen!=null)
+            Debug.Print(PathToOpen);
+            if (PathToOpen != default)
             {
                 System.Diagnostics.Process.Start("explorer.exe", PathToOpen);
             }

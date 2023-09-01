@@ -30,6 +30,11 @@
     "Link": "payment_cu_debit"
   },
   {
+    "HttpMethod": "POST",
+    "Name": "Восстановление УЕ",
+    "Link": "payment_cu_credit"
+  },
+  {
     "HttpMethod": "PUT",
     "Name": "Изменение КП",
     "Link": "payment_project"

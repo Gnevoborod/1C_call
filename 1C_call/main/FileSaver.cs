@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace _1C_call.main
@@ -6,25 +7,20 @@ namespace _1C_call.main
     internal class FileSaver
     {
         string StartPath = @"C:\1c_call";
-
-        public string SaveFile(string method, string Name, byte[] Body)
+        public string FinalPath = default;
+        public void SaveFile(string method, string Name, byte[] Body)
         {
+            Debug.Print("Сохраняем файл " +  Name);
             string DatePath = DateTime.Now.ToString("yyyy.MM.dd");
-            string FinalPath=Path.Combine(StartPath,DatePath,method+DateTime.Now.Hour+"_"+DateTime.Now.Minute+ "_"+DateTime.Now.Second);
-            if(!Directory.Exists(FinalPath))
+            FinalPath = Path.Combine(StartPath, DatePath, method + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second);
+            if (!Directory.Exists(FinalPath))
                 Directory.CreateDirectory(FinalPath);
-            try
+
+            using (FileStream fs = new FileStream(FinalPath + "\\" + Name, FileMode.CreateNew))
             {
-                using (FileStream fs = new FileStream(FinalPath+"\\"+Name, FileMode.CreateNew))
-                {
-                    fs.Write(Body,0,Body.Length);
-                }
-                return FinalPath;
+                fs.Write(Body, 0, Body.Length);
             }
-            catch
-            {
-                return null;
-            }
+
         }
     }
 }
